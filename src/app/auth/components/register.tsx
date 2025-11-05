@@ -3,10 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { trpc } from "@/trpc/react";
 import { useForm } from "@tanstack/react-form";
 import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { useState } from "react";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 import { z } from "zod";
 
 type Props = {
@@ -21,6 +22,7 @@ const formSchema = z.object({
 
 const RegisterTabs = (props: Props) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { mutateAsync } = trpc.authRouter.registerUser.useMutation();
 
   const form = useForm({
     defaultValues: {
@@ -32,33 +34,18 @@ const RegisterTabs = (props: Props) => {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      // let user = await db.user.findFirst({
-      //   where: { email: value.email },
-      // });
+      const response = await mutateAsync(value);
 
-      // if (user) {
-      //   return toast.error(
-      //     "Email sudah terdaftar. Silakan gunakan email lain."
-      //   );
-      // }
+      if (response?.success) {
+        toast.success("Registrasi berhasil! Silakan masuk.");
+        form.reset();
+        props.setTabs("masuk");
+        return;
+      }
 
-      // user = await db.user.create({
-      //   data: {
-      //     name: value.name,
-      //     email: value.email,
-      //     password: value.password,
-      //   },
-      // });
-
-      // if (user) {
-      //   toast.success("Registrasi berhasil! Silakan masuk.");
-      //   form.reset();
-      //   return;
-      // }
-
-      // toast.error("Registrasi gagal. Silakan coba lagi.");
-      props.setTabs("masuk");
-      console.log("Submitted", value);
+      if (response?.error) {
+        return toast.error(response.error);
+      }
     },
   });
 
