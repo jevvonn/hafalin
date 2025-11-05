@@ -19,6 +19,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 const features = [
@@ -150,17 +151,19 @@ export default function LandingPage() {
               >
                 Tentang
               </a>
-              <a
-                href="#"
+              <Link
+                href={`/auth`}
                 className="font-medium text-gray-700 text-sm lg:text-base hover:text-blue-500 transition-colors"
               >
                 Masuk
-              </a>
-              <Button className="h-10 px-4 lg:px-6 bg-linear-to-r from-blue-500 to-purple-500 hover:opacity-90 rounded-lg">
-                <span className="font-medium text-white text-sm lg:text-base">
-                  Daftar
-                </span>
-              </Button>
+              </Link>
+              <Link href={`/auth`}>
+                <Button className="h-10 px-4 lg:px-6 bg-linear-to-r from-blue-500 to-purple-500 hover:opacity-90 rounded-lg">
+                  <span className="font-medium text-white text-sm lg:text-base">
+                    Daftar
+                  </span>
+                </Button>
+              </Link>
             </nav>
 
             <button
@@ -196,17 +199,19 @@ export default function LandingPage() {
                 >
                   Tentang
                 </a>
-                <a
-                  href="#"
+                <Link
+                  href={`/auth`}
                   className="font-medium text-gray-700 text-base py-2"
                 >
                   Masuk
-                </a>
-                <Button className="h-10 px-6 bg-linear-to-r from-blue-500 to-purple-500 hover:opacity-90 rounded-lg w-full">
-                  <span className="font-medium text-white text-base">
-                    Daftar
-                  </span>
-                </Button>
+                </Link>
+                <Link href={`/auth`}>
+                  <Button className="h-10 px-6 bg-linear-to-r from-blue-500 to-purple-500 hover:opacity-90 rounded-lg w-full">
+                    <span className="font-medium text-white text-base">
+                      Daftar
+                    </span>
+                  </Button>
+                </Link>
               </nav>
             </div>
           )}
@@ -234,14 +239,16 @@ export default function LandingPage() {
                         Mulai Sekarang
                       </span>
                     </Button>
-                    <Button
-                      variant="outline"
-                      className="h-14 lg:h-16 px-6 lg:px-8 border-2 border-blue-500 rounded-xl hover:bg-blue-50 w-full sm:w-auto"
-                    >
-                      <span className="font-semibold text-blue-500 text-base lg:text-lg">
-                        Masuk
-                      </span>
-                    </Button>
+                    <Link href={`/auth`}>
+                      <Button
+                        variant="outline"
+                        className="h-14 lg:h-16 px-6 lg:px-8 border-2 border-blue-500 rounded-xl hover:bg-blue-50 w-full sm:w-auto"
+                      >
+                        <span className="font-semibold text-blue-500 text-base lg:text-lg">
+                          Masuk
+                        </span>
+                      </Button>
+                    </Link>
                   </div>
                 </div>
 
