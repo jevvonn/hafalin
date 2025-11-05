@@ -120,9 +120,12 @@ export default function LandingPage() {
         <header className="w-full h-18 bg-white shadow-sm sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-linear-to-r from-blue-500 to-purple-500">
-                <BookOpen className="w-5 h-5 text-white" />
-              </div>
+              <div
+                className="w-8 h-8 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(/logo.png)`,
+                }}
+              />
               <div className="font-bold text-gray-800 text-xl sm:text-2xl">
                 Hafalin
               </div>
