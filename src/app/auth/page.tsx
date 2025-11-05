@@ -1,16 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Eye, EyeOff, Lock, Mail, User, BookOpen } from "lucide-react";
 import Image from "next/image";
+import LoginTabs from "./components/login";
+import { BookOpen } from "lucide-react";
+import RegisterTabs from "./components/register";
 import { useState } from "react";
 
 export default function AuthPage() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [tabs, setTabs] = useState<"masuk" | "daftar">("daftar");
 
   return (
     <div className="flex min-h-screen w-full bg-white">
@@ -72,16 +71,18 @@ export default function AuthPage() {
               </div>
 
               {/* Tabs */}
-              <Tabs defaultValue="daftar" className="w-full">
+              <Tabs className="w-full" value={tabs}>
                 <TabsList className="w-full h-11 bg-gray-100 p-1 rounded-lg">
                   <TabsTrigger
                     value="masuk"
+                    onClick={() => setTabs("masuk")}
                     className="w-full cursor-pointer h-9 font-medium text-sm rounded-md data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=inactive]:text-gray-600 transition-all"
                   >
                     Masuk
                   </TabsTrigger>
                   <TabsTrigger
                     value="daftar"
+                    onClick={() => setTabs("daftar")}
                     className="w-full cursor-pointer h-9 font-medium text-sm rounded-md data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=inactive]:text-gray-600 transition-all"
                   >
                     Daftar
@@ -90,141 +91,12 @@ export default function AuthPage() {
 
                 {/* Login Form */}
                 <TabsContent value="masuk" className="mt-6 sm:mt-8">
-                  <div className="flex flex-col gap-4 sm:gap-5">
-                    <div className="flex flex-col gap-2">
-                      <Label
-                        htmlFor="login-email"
-                        className="font-medium text-gray-700 text-sm"
-                      >
-                        Email
-                      </Label>
-                      <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                        <Input
-                          id="login-email"
-                          type="email"
-                          placeholder="contoh@email.com"
-                          className="h-12 sm:h-[50px] pl-12 font-normal text-sm sm:text-base"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      <Label
-                        htmlFor="login-password"
-                        className="font-medium text-gray-700 text-sm"
-                      >
-                        Kata Sandi
-                      </Label>
-                      <div className="relative">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                        <Input
-                          id="login-password"
-                          type={showPassword ? "text" : "password"}
-                          placeholder="Masukkan kata sandi"
-                          className="h-12 sm:h-[50px] pl-12 pr-12 font-normal text-sm sm:text-base"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 focus:outline-none"
-                        >
-                          {showPassword ? (
-                            <EyeOff className="w-5 h-5 text-gray-400 hover:text-gray-600 transition-colors" />
-                          ) : (
-                            <Eye className="w-5 h-5 text-gray-400 hover:text-gray-600 transition-colors" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2 text-sm">
-                      <a
-                        href="#"
-                        className="text-blue-500 hover:text-blue-600 transition-colors"
-                      >
-                        Lupa kata sandi?
-                      </a>
-                    </div>
-
-                    <Button className="h-12 mt-4 sm:mt-6 bg-linear-to-r from-blue-500 to-purple-500 shadow-lg font-semibold text-white text-sm sm:text-base hover:opacity-90 transition-opacity">
-                      Masuk
-                    </Button>
-                  </div>
+                  <LoginTabs />
                 </TabsContent>
 
                 {/* Register Form */}
                 <TabsContent value="daftar" className="mt-6 sm:mt-8">
-                  <div className="flex flex-col gap-4 sm:gap-5">
-                    <div className="flex flex-col gap-2">
-                      <Label
-                        htmlFor="username"
-                        className="font-medium text-gray-700 text-sm"
-                      >
-                        Username
-                      </Label>
-                      <div className="relative">
-                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                        <Input
-                          id="username"
-                          type="text"
-                          placeholder="Masukkan Username"
-                          className="h-12 sm:h-[50px] pl-12 font-normal text-sm sm:text-base"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      <Label
-                        htmlFor="email"
-                        className="font-medium text-gray-700 text-sm"
-                      >
-                        Email
-                      </Label>
-                      <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="contoh@email.com"
-                          className="h-12 sm:h-[50px] pl-12 font-normal text-sm sm:text-base"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      <Label
-                        htmlFor="password"
-                        className="font-medium text-gray-700 text-sm"
-                      >
-                        Kata Sandi
-                      </Label>
-                      <div className="relative">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                        <Input
-                          id="password"
-                          type={showPassword ? "text" : "password"}
-                          placeholder="Masukkan kata sandi"
-                          className="h-12 sm:h-[50px] pl-12 pr-12 font-normal text-sm sm:text-base"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 focus:outline-none"
-                        >
-                          {showPassword ? (
-                            <EyeOff className="w-5 h-5 text-gray-400 hover:text-gray-600 transition-colors" />
-                          ) : (
-                            <Eye className="w-5 h-5 text-gray-400 hover:text-gray-600 transition-colors" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-
-                    <Button className="h-12 mt-4 sm:mt-6 bg-linear-to-r from-blue-500 to-purple-500 shadow-lg font-semibold text-white text-sm sm:text-base hover:opacity-90 transition-opacity">
-                      Daftar
-                    </Button>
-                  </div>
+                  <RegisterTabs setTabs={setTabs} />
                 </TabsContent>
               </Tabs>
             </div>
